@@ -1,49 +1,61 @@
 <template>
   <div>
-    <div class="m-2 p-3">
+    <div class="px-5 mt-4">
       <div class="row">
-        <div class="col-md-7 p=3">
-          <h5>Flights</h5>
+        <div class="col-md-7 border">
+          <h5 class="py-3 myColor fw-bold"><span class="underline">Flights</span></h5>
+          <p> <span class="me-4"><a class="myAlert" href="#">Redeem flights</a></span>  <span><a class="myAlert" href="#">Multi-city / Stopover</a></span></p>
           <div>
             <div class="card-group">
               <div
-                class="card btn"
+                class="card  btn border-start-0 border-top-0 border border-3"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
-                <div class="card-body">
-                  <h5 class="card-title">Leaving from</h5>
-                  <h4 class="card-text">DAC</h4>
+                <div class="card-body row row-cols-1">
+                  <h5 class="card-title text-muted mt-2">Leaving from</h5>
+                  <h4 class="card-text fw-bold">DAC</h4>
                   <h5 class="card-text">{{ leavingFrom }}</h5>
                 </div>
               </div>
               <div
-                class="card btn"
+                class="card btn border-start-0 border-top-0 border border-3"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
-                <div class="card-body">
-                  <h5 class="card-title">Going to</h5>
-                  <h4 class="card-text">DAC</h4>
+                <div class="card-body row row-cols-1">
+                  <h5 class="card-title text-muted mt-2">Going to</h5>
+                  <h4 class="card-text fw-bold">DAC</h4>
                   <h5 class="card-text">{{ goingTo }}</h5>
-                  <p class="card-text"></p>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Departing on</h5>
-                  <input type="date" v-model="departingOn" />
-                  <h5 class="card-title">Returning on</h5>
-                  <input type="date" v-model="returningOn" />
+              <div class="card border-start-0 border-top-0 border border-3" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                <div class="card-body text-center btn">
+                  <div class="d-flex flex-column">
+                   <div> 
+                     <h6 class="card-title text-muted">Departing on</h6>
+                      <p class="fw-bold"> {{departingOn}}</p>
+                    </div>
+                  <!-- <input type="date" v-model="departingOn" /> -->
+                  <hr>
+                  <div>
+                    <h6 class="card-title text-muted">Returning on</h6>
+                    <p class="fw-bold"> {{returningOn}}</p>
+                  </div>
+                  <!-- <input type="date" v-model="returningOn" /> -->
+                  </div>
                 </div>
               </div>
-              <div class="card btn btn-light" @click="search">
-                <div class="card-body">
-                  <h5 class="card-title">Search Flight</h5>
-                  <p class="card-text"></p>
+              <div class="card btn srchBtn" @click="search">
+                <div class="card-body row row-cols-1" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                  <i class="fas fa-plane fa-3x p-2 text-light"></i>
+                  <h5 class="card-title fw-bold text-light">Search Flight</h5>
                 </div>
               </div>
             </div>
+          </div>
+          <div class="mt-3">
+            <p class="border py-2"> <i class="fas fa-bell px-2 text-warning"></i> <a href="#" class="myAlert"> Check the latest travel restrictions issued by United Kingdom </a></p>
           </div>
         </div>
         <div class="col-md-5">
@@ -56,41 +68,7 @@
       </div>
     </div>
 
-    <!-- flights -->
-    <!-- <div v-for="item in all" :key="item">
-      <h3>
-        destination code:
-        {{ all.response.flights[item].flight[0].destinationName.code }}
-      </h3>
-    </div> -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Destination code</th>
-          <th scope="col">origin Iata Code</th>
-          <th scope="col">destinationTime</th>
-          <th scope="col">originTime</th>
-          <th scope="col">duration</th>
-          <th scope="col">price</th>
-          <th scope="col">airlineCode</th>
-          <th scope="col">flightNumber</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{ destinationIataCode }}</td>
-          <td>{{ originIataCode }}</td>
-          <td>{{ destinationTime }}</td>
-          <td>{{ originTime }}</td>
-          <td>{{ duration }}</td>
-          <td>{{ price }}</td>
-          <td>{{ airlineCode }}</td>
-          <td>{{ flightNumber }}</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Modal -->
+    <!-- Modal for city-->
     <div
       class="modal fade"
       id="exampleModal"
@@ -100,20 +78,9 @@
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Select a departure city
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
           <div class="modal-body">
             <div class="mb-2">
-              <label for="leavingFrom" class="form-label">Leaving from</label>
+              <label for="leavingFrom" class="form-label fw-bold">Leaving from</label>
               <input
                 type="text"
                 class="form-control"
@@ -123,7 +90,7 @@
               />
             </div>
             <div class="">
-              <label for="goinTo" class="form-label">Going to</label>
+              <label for="goinTo" class="form-label fw-bold">Going to</label>
               <input
                 type="text"
                 class="form-control"
@@ -147,9 +114,120 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+              Done
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for date -->
+    <div
+      class="modal fade"
+      id="exampleModal2"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel2"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="mb-2">
+              <label for="departingOn" class="form-label fw-bold">Departing on</label>
+              <input
+                type="date"
+                class="form-control"
+                id="departingOn"
+                aria-describedby="emailHelp"
+                v-model="departingOn"
+              />
+            </div>
+            <div class="">
+              <label for="returningOn" class="form-label fw-bold">Returning on</label>
+              <input
+                type="date"
+                class="form-control"
+                id="returningOn"
+                aria-describedby="emailHelp"
+                v-model="returningOn"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for search results -->
+    <div
+      class="modal fade"
+      id="exampleModal3"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel3"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Available Flights</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- table -->
+            <table class="table" v-if="flights.length">
+              <thead>
+                <tr>
+                  <th scope="col">Airlines</th>
+                  <th scope="col">Arrival Date</th>
+                  <th scope="col">Arrival Time</th>
+                  <th scope="col">Departure Date</th>
+                  <th scope="col">Departure Time</th>
+                  <th scope="col">Destination Name</th>
+                  <th scope="col">Duration</th>
+                  <th scope="col">Origin Name</th>
+                  <!-- <th scope="col">Price</th>
+                  <th scope="col">Currency</th>
+                  <th scope="col">Deal</th> -->
+                </tr>
+              </thead>
+              <tbody  v-for="flight in flights" :key="flight">
+                <tr>
+                  <td>{{ flight.airlines.full }}</td>
+                  <td>{{ flight.arrivalDateTime.date }}</td>
+                  <td>{{ flight.arrivalDateTime.time }}</td>
+                  <td>{{ flight.departureDateTime.date }}</td>
+                  <td>{{ flight.departureDateTime.time }}</td>
+                  <td>{{ flight.destinationName.city }}</td>
+                  <td>{{ flight.duration }}</td>
+                  <td>{{ flight.originName.city }}</td>
+                  <!-- <td>{{ price }}</td>
+                  <td>{{ flight.currency }}</td>
+                  <td>{{ flight.deal }}</td> -->
+                </tr>
+              </tbody>
+            </table>
+            <div v-else class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <!-- table end -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Done
+            </button>
           </div>
         </div>
       </div>
@@ -165,35 +243,21 @@ export default {
       goingTo: "",
       departingOn: "",
       returningOn: "",
-      destinationIataCode: "",
-      originIataCode: "",
-      destinationTime: "",
-      originTime: "",
-      duration: "",
-      price: "",
-      airlineCode: "",
-      flightNumber: "",
+      //price: [],
+      // destinationIataCode: "",
+      // originIataCode: "",
+      // destinationTime: "",
+      // originTime: "",
+      // duration: "",
+      // price: "",
+      // airlineCode: "",
+      // flightNumber: "",
+      flights: []
     };
   },
 
   methods: {
-    search() {
-      //var maindata;
-      // var destinationIataCode;
-      // var originIataCode;
-      // var destinationTime;
-      // var originTime;
-      // var duration;
-      // var price;
-      // var airlineCode;
-      // var flightNumber;
-
-      console.log(
-        this.leavingFrom,
-        this.goingTo,
-        this.departingOn,
-        this.returningOn
-      );
+    async search() {
       var url =
         "https://api.sharetrip.net/api/v1/flight/search?tripType=Return&adult=1&child=0&infant=0&class=Economy&origin=" +
         this.leavingFrom +
@@ -204,26 +268,33 @@ export default {
         "&depart=" +
         this.returningOn;
 
-      console.log(url);
-
-      fetch(url)
+      await fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          this.destinationIataCode =
-            data.response.flights[0].flight[0].destinationName.code;
-          this.originIataCode =
-            data.response.flights[0].flight[0].originName.code;
-          (this.destinationTime =
-            data.response.flights[0].flight[0].departureDateTime.time),
-            (this.originTime =
-              data.response.flights[0].flight[0].arrivalDateTime.time);
-          this.duration = data.response.flights[0].flight[0].duration;
-          this.price = data.response.flights[0].price;
-          this.airlineCode =
-            data.response.flights[0].segments[0].segment[1].airlines.code;
-          this.flightNumber =
-            data.response.flights[0].segments[0].segment[1].flightNumber;
+          // console.log(data);
+
+         for(let i=0; i<data.response.flights.length; i++) {
+            this.flights[i] = data.response.flights[i].flight[0];
+            //this.price[i] = data.response.flights[i].price;
+            console.log("Flight ", i, ": ", this.flights[i]);
+          }
+          // this.destinationIataCode =
+            // data.response.flights[0].flight[0].destinationName.code;
+          // this.originIataCode =
+          //   data.response.flights[0].flight[0].originName.code;
+          // (this.destinationTime =
+          //   data.response.flights[0].flight[0].departureDateTime.time),
+            // (this.originTime =
+            //   data.response.flights[0].flight[0].arrivalDateTime.time);
+          // this.duration = data.response.flights[0].flight[0].duration;
+          // this.price = data.response.flights[0].price;
+          // this.airlineCode =
+          //   data.response.flights[0].segments[0].segment[1].airlines.code;
+          // this.flightNumber =
+            // data.response.flights[0].segments[0].segment[1].flightNumber;
+        })
+        .catch(() => {
+          alert("Opps! There is no flight available. Try again!");
         });
     },
     /*autoSug() {
@@ -241,3 +312,26 @@ export default {
   },
 };
 </script>
+
+<style>
+  .myColor {
+    color: #4c4c4c;
+  }
+  .srchBtn {
+    background: linear-gradient(315deg,#005d63 0,#202f42 99.93%);
+  }
+  .underline {
+    text-decoration: none; 
+    position: relative; 
+  }
+  .underline:after {
+    position: absolute;
+    content: '';
+    height: 3px;
+    bottom: -5px;
+    margin: 0 auto;
+    left: 0;
+    width: 100%;
+    background: #4c4c4c;
+  }
+</style>

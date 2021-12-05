@@ -1,24 +1,16 @@
-# flight-for-you
+## Project: Flight for you
+**Features:**
+ - **This is a flight booking related website** 
+ - **Anyone who wants to book flight, can use this site**
+ - **User can see the upcoming flights and details**
+ 
+**Tecnology used:**
+ - HTML
+ - CSS, Bootstrap 5
+ - JS, Vue Js
 
-## Project setup
-```
-npm install
-```
+**Screenshots:**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+![enter image description here](https://i.ibb.co/1R481xZ/1.png)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![enter image description here](https://i.ibb.co/hW7GKS5/2.png)

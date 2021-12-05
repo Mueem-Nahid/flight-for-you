@@ -2,15 +2,17 @@
   <div id="app">
     <comHeader />
     <comMainSection />
-    <h3 class="text-danger">Informations: </h3>
-    <comSearch :infoes="names"/>
+    <comFooter />
+    <!-- <h3 class="text-danger">Informations: </h3>
+    <comSearch :infoes="names"/> -->
   </div>
 </template>
 
 <script>
 import comHeader from "./components/Header/Header.vue";
-import comSearch from "./components/Search/Search.vue";
+// import comSearch from "./components/Search/Search.vue";
 import comMainSection from "./components/MainSection/MainSection.vue";
+import comFooter from "./components/Footer/Footer.vue";
 
 export default {
   data() {
@@ -20,8 +22,9 @@ export default {
   },
   components: {
     comHeader,
-    comSearch,
-    comMainSection
+    // comSearch,
+    comMainSection,
+    comFooter
   },
 };
 </script>
