@@ -185,7 +185,7 @@
           </div>
           <div class="modal-body">
             <!-- table -->
-            <table class="table" v-if="flights.length">
+            <table class="table table-hover table-responsive" v-if="flights.length">
               <thead>
                 <tr>
                   <th scope="col">Airlines</th>
@@ -196,24 +196,24 @@
                   <th scope="col">Destination Name</th>
                   <th scope="col">Duration</th>
                   <th scope="col">Origin Name</th>
-                  <!-- <th scope="col">Price</th>
+                  <th scope="col">Price</th>
                   <th scope="col">Currency</th>
-                  <th scope="col">Deal</th> -->
+                  <th scope="col">Deal</th>
                 </tr>
               </thead>
-              <tbody  v-for="flight in flights" :key="flight">
+              <tbody  v-for="flight in flights" :key="flight.id">
                 <tr>
-                  <td>{{ flight.airlines.full }}</td>
-                  <td>{{ flight.arrivalDateTime.date }}</td>
-                  <td>{{ flight.arrivalDateTime.time }}</td>
-                  <td>{{ flight.departureDateTime.date }}</td>
-                  <td>{{ flight.departureDateTime.time }}</td>
-                  <td>{{ flight.destinationName.city }}</td>
-                  <td>{{ flight.duration }}</td>
-                  <td>{{ flight.originName.city }}</td>
-                  <!-- <td>{{ price }}</td>
+                  <td>{{ flight.flight[0].airlines.full }}</td>
+                  <td>{{ flight.flight[0].arrivalDateTime.date }}</td>
+                  <td>{{ flight.flight[0].arrivalDateTime.time }}</td>
+                  <td>{{ flight.flight[0].departureDateTime.date }}</td>
+                  <td>{{ flight.flight[0].departureDateTime.time }}</td>
+                  <td>{{ flight.flight[0].destinationName.city }}</td>
+                  <td>{{ flight.flight[0].duration }}</td>
+                  <td>{{ flight.flight[0].originName.city }}</td>
+                  <td>{{ flight.price }}</td>
                   <td>{{ flight.currency }}</td>
-                  <td>{{ flight.deal }}</td> -->
+                  <td>{{ flight.deal }}</td>
                 </tr>
               </tbody>
             </table>
@@ -245,15 +245,6 @@ export default {
       goingTo: "City",
       departingOn: "",
       returningOn: "",
-      //price: [],
-      // destinationIataCode: "",
-      // originIataCode: "",
-      // destinationTime: "",
-      // originTime: "",
-      // duration: "",
-      // price: "",
-      // airlineCode: "",
-      // flightNumber: "",
       destinationIataCode: "",
       desData: [],
       flights: []
@@ -298,44 +289,12 @@ export default {
       await fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          // console.log(data);
-
-         for(let i=0; i<data.response.flights.length; i++) {
-            this.flights[i] = data.response.flights[i].flight[0];
-            //this.price[i] = data.response.flights[i].price;
-            console.log("Flight ", i, ": ", this.flights[i]);
-          }
-          // this.destinationIataCode =
-            // data.response.flights[0].flight[0].destinationName.code;
-          // this.originIataCode =
-          //   data.response.flights[0].flight[0].originName.code;
-          // (this.destinationTime =
-          //   data.response.flights[0].flight[0].departureDateTime.time),
-            // (this.originTime =
-            //   data.response.flights[0].flight[0].arrivalDateTime.time);
-          // this.duration = data.response.flights[0].flight[0].duration;
-          // this.price = data.response.flights[0].price;
-          // this.airlineCode =
-          //   data.response.flights[0].segments[0].segment[1].airlines.code;
-          // this.flightNumber =
-            // data.response.flights[0].segments[0].segment[1].flightNumber;
+          this.flights.push(...data.response.flights);
         })
         .catch(() => {
           alert("Opps! There is no flight available. Try again!");
         });
     },
-    /*autoSug() {
-      let url =
-        "https://api.sharetrip.net/api/v1/flight/search/airport?name=" +
-        this.leavingFrom;
-      console.log(url);
-      fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data.response[0]);
-          this.suggestions = data.response[0].name;
-        });
-    },*/
   },
 };
 </script>
