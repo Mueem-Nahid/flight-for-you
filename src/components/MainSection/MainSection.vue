@@ -89,6 +89,9 @@
                 v-model="leavingFrom"
                 @keyup="desSearch(leavingFrom)"
               />
+              <ul id="leaving" class="list-group">
+              <li class="list-group-item" v-for="(data, idx) in desData" :key="idx" @click="setDestinationiatacode(data.iata, data.name)">{{ data.iata }},{{ data.name }}</li>
+            </ul>
             </div>
             <div class="">
               <label for="goinTo" class="form-label fw-bold">Going to</label>
@@ -100,16 +103,11 @@
                 v-model="goingTo"
                 @keyup="desSearch(goingTo)"
               />
-            </div>
-          </div>
-          <!-- sugg -->
-            <ul id="leaving" class="list-group">
-              <li class="list-group-item" v-for="(data, idx) in desData" :key="idx" @click="setDestinationiatacode(data.iata, data.name)">{{ data.iata }},{{ data.name }}</li>
-            </ul>
-
-            <ul id="going" class="list-group">
+              <ul id="going" class="list-group">
               <li class="list-group-item" v-for="(data, idx) in desData" :key="idx" @click="setDestinationiatacode2(data.iata, data.name)">{{ data.iata }},{{ data.name }}</li>
             </ul>
+            </div>
+          </div>  
           <div class="modal-footer">
             <button
               type="button"
@@ -181,7 +179,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Available Flights</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" @click="resetAll" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <!-- table -->
@@ -227,6 +225,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
+              @click="resetAll"
             >
               Done
             </button>
@@ -295,6 +294,16 @@ export default {
           alert("Opps! There is no flight available. Try again!");
         });
     },
+
+    resetAll() {
+      // this.leavingFrom = "";
+      // this.goingTo = "";
+      this.destinationIataCode = "";
+      this.flights.splice(0);
+      document.getElementById("leaving").style.display="block";
+      document.getElementById("going").style.display="block";
+    }
+
   },
 };
 </script>
