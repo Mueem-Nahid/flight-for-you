@@ -14,7 +14,7 @@
               >
                 <div class="card-body row row-cols-1">
                   <h5 class="card-title text-muted mt-2">Leaving from</h5>
-                  <h4 class="card-text fw-bold">DAC</h4>
+                  <!-- <h4 class="card-text fw-bold">DAC</h4> -->
                   <h5 class="card-text">{{ leavingFrom }}</h5>
                 </div>
               </div>
@@ -25,7 +25,7 @@
               >
                 <div class="card-body row row-cols-1">
                   <h5 class="card-title text-muted mt-2">Going to</h5>
-                  <h4 class="card-text fw-bold">DAC</h4>
+                  <!-- <h4 class="card-text fw-bold">DAC</h4> -->
                   <h5 class="card-text">{{ goingTo }}</h5>
                 </div>
               </div>
@@ -87,6 +87,7 @@
                 id="leavingFrom"
                 aria-describedby="emailHelp"
                 v-model="leavingFrom"
+                @keyup="desSearch(leavingFrom)"
               />
             </div>
             <div class="">
@@ -97,17 +98,18 @@
                 id="goinTo"
                 aria-describedby="emailHelp"
                 v-model="goingTo"
+                @keyup="desSearch(goingTo)"
               />
             </div>
-
-            <!-- <div v-if="suggestions">
-              <ul>
-                <li v-for="suggestion in suggestions" :key="suggestion">
-                  {{ suggestion }}
-                </li>
-              </ul>
-            </div> -->
           </div>
+          <!-- sugg -->
+            <ul id="leaving" class="list-group">
+              <li class="list-group-item" v-for="(data, idx) in desData" :key="idx" @click="setDestinationiatacode(data.iata, data.name)">{{ data.iata }},{{ data.name }}</li>
+            </ul>
+
+            <ul id="going" class="list-group">
+              <li class="list-group-item" v-for="(data, idx) in desData" :key="idx" @click="setDestinationiatacode2(data.iata, data.name)">{{ data.iata }},{{ data.name }}</li>
+            </ul>
           <div class="modal-footer">
             <button
               type="button"
@@ -239,8 +241,8 @@
 export default {
   data() {
     return {
-      leavingFrom: "",
-      goingTo: "",
+      leavingFrom: "City",
+      goingTo: "City",
       departingOn: "",
       returningOn: "",
       //price: [],
@@ -252,11 +254,36 @@ export default {
       // price: "",
       // airlineCode: "",
       // flightNumber: "",
+      destinationIataCode: "",
+      desData: [],
       flights: []
     };
   },
 
   methods: {
+    desSearch(inputCity) {
+      fetch(
+        "https://api.sharetrip.net/api/v1/flight/search/airport?name=" +
+          inputCity
+      )
+        .then(res => res.json())
+        .then(
+          data => (
+            (this.desData = data.response),
+            // console.log(this.desData.response[0].iata),
+            (this.destinationIataCode = this.desData)
+          )
+        );
+    },
+    setDestinationiatacode(iata) {
+      (this.leavingFrom = iata);
+      document.getElementById("leaving").style.display="none";
+    },
+    setDestinationiatacode2(iata) {
+      (this.goingTo = iata);
+      document.getElementById("going").style.display="none";
+    },
+
     async search() {
       var url =
         "https://api.sharetrip.net/api/v1/flight/search?tripType=Return&adult=1&child=0&infant=0&class=Economy&origin=" +
